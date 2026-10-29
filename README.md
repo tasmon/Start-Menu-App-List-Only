@@ -2,18 +2,13 @@
 
 A small Windows 10 utility that turns the Start menu into a clean list of installed apps. It removes every tile, locks the layout so nothing can be pinned back, and hides **Pin to Start** from context menus. One click applies it, one click undoes it.
 
----
-
-<img width="940" height="655" alt="Screenshot 2026-10-30 015842" src="https://github.com/user-attachments/assets/42ed8790-b5ee-4567-b931-f763bdc73134" />
-
----
-
 <p align="left">
   <img alt="Platform: Windows 10" src="https://img.shields.io/badge/Platform-Windows%2010-0078D6?style=flat-square&logo=windows&logoColor=white">
   <img alt=".NET Framework 4.x" src="https://img.shields.io/badge/.NET%20Framework-4.x-512BD4?style=flat-square&logo=dotnet&logoColor=white">
   <img alt="Built with C# and WinForms" src="https://img.shields.io/badge/Built%20with-C%23%20%2B%20WinForms-239120?style=flat-square">
   <img alt="Installer: NSIS" src="https://img.shields.io/badge/Installer-NSIS-0A66C2?style=flat-square">
   <img alt="Version 1.1.0" src="https://img.shields.io/badge/Version-1.1.0-2EA44F?style=flat-square">
+  <img alt="License: GPL v3" src="https://img.shields.io/badge/License-GPLv3-blue?style=flat-square">
   <img alt="Requires administrator" src="https://img.shields.io/badge/Requires-Administrator-5B5B5B?style=flat-square">
   <img alt="Code signing: unsigned" src="https://img.shields.io/badge/Code%20signing-unsigned-E36209?style=flat-square">
 </p>
@@ -251,7 +246,9 @@ This software modifies system policy in the registry and registers a scheduled t
 
 ## License
 
-See the [`LICENSE`](LICENSE) file.
+Copyright (C) 2026 Tasmon Islam
+
+This program is free software: you can redistribute it and/or modify it under the terms of the **GNU General Public License, version 3**, as published by the Free Software Foundation. It is distributed in the hope that it will be useful, but **without any warranty**; without even the implied warranty of merchantability or fitness for a particular purpose. See the [`LICENSE`](LICENSE) file for the full text, or <https://www.gnu.org/licenses/gpl-3.0.html>.
 
 ---
 
