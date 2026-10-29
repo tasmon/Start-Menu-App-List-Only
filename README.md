@@ -4,7 +4,7 @@ A small Windows 10 utility that turns the Start menu into a clean list of instal
 
 ---
 
-<img width="859" height="560" alt="image" src="https://github.com/user-attachments/assets/4476f0b1-9513-4536-96f6-02808511e43d" />
+<img width="940" height="655" alt="Screenshot 2026-10-30 015842" src="https://github.com/user-attachments/assets/42ed8790-b5ee-4567-b931-f763bdc73134" />
 
 ---
 
