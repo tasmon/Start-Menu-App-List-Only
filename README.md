@@ -2,6 +2,12 @@
 
 A small Windows 10 utility that turns the Start menu into a clean list of installed apps. It removes every tile, locks the layout so nothing can be pinned back, and hides **Pin to Start** from context menus. One click applies it, one click undoes it.
 
+---
+
+<img width="859" height="560" alt="image" src="https://github.com/user-attachments/assets/4476f0b1-9513-4536-96f6-02808511e43d" />
+
+---
+
 <p align="left">
   <img alt="Platform: Windows 10" src="https://img.shields.io/badge/Platform-Windows%2010-0078D6?style=flat-square&logo=windows&logoColor=white">
   <img alt=".NET Framework 4.x" src="https://img.shields.io/badge/.NET%20Framework-4.x-512BD4?style=flat-square&logo=dotnet&logoColor=white">
