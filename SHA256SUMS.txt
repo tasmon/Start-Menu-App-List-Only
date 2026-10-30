@@ -1,1 +1,1 @@
-53f168fafe7531bffd333f6c3285c5b9207c292ab42fa856909c8e72a39c5634  StartMenuAppListOnly-Setup-1.1.0.exe
+db5c484d51a2e0bef85aa92d1a773b7f0c70938dd8138a503631b1d317f07d81  StartMenuAppListOnly-Setup-1.2.0.exe

@@ -2,22 +2,12 @@
 
 A small Windows 10 utility that turns the Start menu into a clean list of installed apps. It removes every tile, locks the layout so nothing can be pinned back, and hides **Pin to Start** from context menus. One click applies it, one click undoes it.
 
----
-
-<img width="940" height="655" alt="image" src="https://github.com/user-attachments/assets/5ebc5483-389e-4b4f-ba7f-e41cf314fd67" />
-
----
-
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/26fa7377-c113-4565-b31c-66c47cd9712f" />
-
----
-
 <p align="left">
   <img alt="Platform: Windows 10" src="https://img.shields.io/badge/Platform-Windows%2010-0078D6?style=flat-square&logo=windows&logoColor=white">
   <img alt=".NET Framework 4.x" src="https://img.shields.io/badge/.NET%20Framework-4.x-512BD4?style=flat-square&logo=dotnet&logoColor=white">
   <img alt="Built with C# and WinForms" src="https://img.shields.io/badge/Built%20with-C%23%20%2B%20WinForms-239120?style=flat-square">
   <img alt="Installer: NSIS" src="https://img.shields.io/badge/Installer-NSIS-0A66C2?style=flat-square">
-  <img alt="Version 1.1.0" src="https://img.shields.io/badge/Version-1.1.0-2EA44F?style=flat-square">
+  <img alt="Version 1.2.0" src="https://img.shields.io/badge/Version-1.2.0-2EA44F?style=flat-square">
   <img alt="License: GPL v3" src="https://img.shields.io/badge/License-GPLv3-blue?style=flat-square">
   <img alt="Requires administrator" src="https://img.shields.io/badge/Requires-Administrator-5B5B5B?style=flat-square">
   <img alt="Code signing: unsigned" src="https://img.shields.io/badge/Code%20signing-unsigned-E36209?style=flat-square">
@@ -30,7 +20,7 @@ A small Windows 10 utility that turns the Start menu into a clean list of instal
 [![License](https://img.shields.io/github/license/OWNER/REPO?style=flat-square)](LICENSE)
 -->
 
-> **Status:** v1.1.0. The installer is **not code-signed**, so Windows will show an "Unknown publisher" warning. See [Unknown Publisher / SmartScreen](#unknown-publisher--smartscreen).
+> **Status:** v1.2.0. The installer is **not code-signed**, so Windows will show an "Unknown publisher" warning. See [Unknown Publisher / SmartScreen](#unknown-publisher--smartscreen).
 
 ---
 
@@ -59,6 +49,7 @@ A small Windows 10 utility that turns the Start menu into a clean list of instal
 - **Apps list only:** all Start tiles are removed and the layout is locked, so tiles cannot be added or restored.
 - **No Pin to Start:** the *Pin to Start* shell handler is blocked, so it disappears from file, folder and shortcut context menus.
 - **No promotional tiles:** Windows consumer features (suggested apps and similar) are switched off.
+- **Optional: compact Start only.** One checkbox (or `/nofullscreen`) turns off full-screen Start, so Start opens as the compact apps-only menu. See [Known limitations](#known-limitations) for why this is separate.
 - **Persistent:** machine-wide policies, plus a small startup task that re-applies them if a Windows update resets them.
 - **Fully reversible:** original registry values are saved before the first change and restored exactly on revert or uninstall.
 - **Native, scalable GUI:** per-monitor DPI aware; text wraps to the window width and the window scrolls instead of cropping on small screens.
@@ -76,10 +67,10 @@ A small Windows 10 utility that turns the Start menu into a clean list of instal
 
 ## Installation
 
-1. Download `StartMenuAppListOnly-Setup-1.1.0.exe` from the [Releases](../../releases) page.
+1. Download `StartMenuAppListOnly-Setup-1.2.0.exe` from the [Releases](../../releases) page.
 2. *(Recommended)* Verify the download. In PowerShell:
    ```powershell
-   Get-FileHash .\StartMenuAppListOnly-Setup-1.1.0.exe -Algorithm SHA256
+   Get-FileHash .\StartMenuAppListOnly-Setup-1.2.0.exe -Algorithm SHA256
    ```
    Compare the result with the SHA-256 listed in the release notes (or `SHA256SUMS.txt`).
 3. Run the installer. If Windows warns about an unknown publisher, read [that section](#unknown-publisher--smartscreen) first.
@@ -88,8 +79,8 @@ A small Windows 10 utility that turns the Start menu into a clean list of instal
 **Silent install** (for scripts or deployment, run elevated):
 
 ```bat
-StartMenuAppListOnly-Setup-1.1.0.exe /S
-StartMenuAppListOnly-Setup-1.1.0.exe /S /D=C:\Tools\StartMenuAppListOnly
+StartMenuAppListOnly-Setup-1.2.0.exe /S
+StartMenuAppListOnly-Setup-1.2.0.exe /S /D=C:\Tools\StartMenuAppListOnly
 ```
 
 (`/D=` must be the last argument and the path must not be quoted.)
@@ -97,8 +88,9 @@ StartMenuAppListOnly-Setup-1.1.0.exe /S /D=C:\Tools\StartMenuAppListOnly
 ## Usage
 
 1. Open **Start Menu App List Only**. It asks for administrator rights.
-2. Click **Apply changes**.
-3. **Sign out and back in** (the app offers to do this) so Windows rebuilds the Start layout.
+2. *(Optional)* Tick **Also turn off full-screen Start** if you use full-screen Start and want the compact apps-only menu instead.
+3. Click **Apply changes**.
+4. **Sign out and back in** (the app offers to do this) so Windows rebuilds the Start layout.
 
 The status card shows whether the setting is **Applied**, **Partially applied** or **Not applied**, with a line for each component. To go back, click **Restore default**.
 
@@ -114,6 +106,7 @@ Run from an **elevated** prompt. The installed executable is at
 | `/revert` | Restore the original values, remove the startup task and delete the app's data folder. |
 | `/status` | Report state through the exit code only (no output). |
 | `/quiet` | Suppress message boxes (use for scripts). |
+| `/nofullscreen` | With `/apply`: also force the compact (non-full-screen) Start menu. Running `/apply` **without** it puts the original full-screen setting back. |
 | `/norestart` | Do not restart Explorer. Sign out/in or reboot instead. |
 | `/reapply` | Used by the startup task: re-write the policies silently, without recreating the task or restarting Explorer. |
 
@@ -151,6 +144,7 @@ Everything is under `HKEY_LOCAL_MACHINE`, so it applies to all users.
 | `SOFTWARE\Policies\Microsoft\Windows\Explorer` | `StartLayoutFile` = path to an empty layout XML | Layout to enforce (no tiles) |
 | `SOFTWARE\Policies\Microsoft\Windows\CloudContent` | `DisableWindowsConsumerFeatures` = `1` | Stops promoted/suggested tiles |
 | `SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked` | `{470C0EBD-5D73-4d58-9CED-E91E22E23282}` | Blocks the *Pin to Start* shell handler (64-bit and 32-bit views) |
+| `SOFTWARE\Policies\Microsoft\Windows\Explorer` | `ForceStartSize` = `1` (**only if the full-screen option is ticked**) | Forces the compact Start menu; your original value is restored when you untick it or revert |
 
 Other artifacts:
 
@@ -193,7 +187,8 @@ Builds worth covering: 1809 (17763), 1909 (18363), 2004/20H2/21H1/21H2 (19041-19
 4. Reboot: the setting is still applied (status card shows **Applied**).
 5. *(Optional)* Install a feature update and confirm it persists or is re-applied by the startup task.
 6. Click **Restore default**, sign out and in: Start behaves like stock Windows and the status card shows **Not applied**.
-7. Uninstall: no `StartMenuAppListOnly` task, data folder or policy values remain.
+7. *(Optional feature)* Tick **Also turn off full-screen Start**, apply, sign out and in: Start opens as the compact menu. Untick and apply again: your original full-screen setting returns.
+8. Uninstall: no `StartMenuAppListOnly` task, data folder or policy values remain.
 
 Please report your Windows edition, build number (`winver`) and results in an [issue](../../issues).
 
@@ -201,6 +196,7 @@ Please report your Windows edition, build number (`winver`) and results in an [i
 
 - **Right-click "More" submenu:** the Start menu draws its own app context menu, and Windows offers no supported setting to rearrange it. With *Pin to Start* gone, the menu can show only a **More** entry (Pin to taskbar, Run as administrator, Open file location, App settings, etc., depending on the app). This tool does not change that submenu.
 - **Previous tile layout is not restored.** The locked empty layout replaces it. After reverting, you can re-pin tiles manually.
+- **Full-screen Start still shows a "Pinned tiles" button.** In full-screen Start (or tablet mode) Windows draws its own **Pinned tiles / All apps** buttons, and no supported setting hides them or makes Start open on *All apps*. Tiles are gone, so that view is empty. Use the optional **turn off full-screen Start** setting to get the compact apps-only menu instead; tablet mode is always full-screen and is unaffected.
 - **Empty strip in Start:** on some builds the Start menu may still reserve a narrow area where tiles used to be.
 - **Windows Home:** the layout-lock policy may be ignored.
 - **Taskbar pinning is untouched.** Only Start pinning is blocked.
@@ -238,7 +234,7 @@ build.bat
 ./build.sh
 ```
 
-Output: `StartMenuAppListOnly-Setup-1.1.0.exe`.
+Output: `StartMenuAppListOnly-Setup-1.2.0.exe`.
 
 ## Troubleshooting
 
